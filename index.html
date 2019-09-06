@@ -15,8 +15,8 @@
     }
 
     #china-map {
-      width: 2000px;
-      height: 2000px;
+      width: 1000px;
+      height: 1000px;
       margin: auto;
     }
 
@@ -47,8 +47,8 @@
   <div class="layui-tab layui-tab-card" style="margin: 0">
     <ul class="layui-tab-title">
       <li class="layui-this">首页</li>
-      <li>代办</li>
-      <li id="echartSet">运维</li>
+      <li>代办事宜</li>
+      <li id="echartSet">数据统计</li>
       <li>个人中心</li>
     </ul>
     <div class="layui-tab-content">
@@ -313,105 +313,122 @@
     //柱状图数据 
     var myChart1 = echarts.init(document.getElementById('statistics_echarts'));
     var option1 = {
-      title: {
-        text: '受理分布（申报类）',
-        textStyle: {
-          fontSize: 16,
-          color: "black"
-        },
-        left: "2%"
-      },
-      legend: {
-        right: "3%",
-        data: ['生产未申报', '外贸未申报']
-      },
-      grid: {
-        top: 30,
-        left: '3%',
-        right: '3%',
-        bottom: 20,
-        containLabel: true
-      },
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: { // 坐标轴指示器，坐标轴触发有效
-          type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
-        },
-        formatter: function (parms) {
-          console.log(parms)
-          var str = "专管员：" + parms[0].name + "</br>" +
-            parms[0].marker + parms[0].seriesName + "：" + Math.abs(parms[0].data) + "</br>" +
-            parms[1].marker + parms[1].seriesName + "：" + Math.abs(parms[1].data) + "</br>" +
-            parms[2].marker + parms[2].seriesName + "：" + Math.abs(parms[2].data) + "</br>"
-          return str;
-        }
-      },
-      xAxis: [{
-        type: 'category',
-        data: ['A', 'B', 'C', 'D']
-      }, {
-        show: false,
-        type: 'category',
-        data: ['A', 'B', 'C', 'D']
-      }],
-      yAxis: [{
-        type: 'value',
-        axisLabel: {
-          formatter: function (value, index) {
-            var val = Math.abs(value)
-            return val;
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: { // 坐标轴指示器，坐标轴触发有效
+            type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
           }
-        }
-      }],
-      series: [{
-          id: "topchart",
-          name: "人员未申报",
+        },
+        grid: {
+          left: '2%',
+          right: '4%',
+          bottom: '14%',
+          top:'16%',
+          containLabel: true
+        },
+         legend: {
+        data: ['待遇支付', '计划成交', '计划估值'],
+        right: 10,
+        top:12,
+        textStyle: {
+            color: "#000"
+        },
+        itemWidth: 12,
+        itemHeight: 10,
+        // itemGap: 35
+    },
+        xAxis: {
+          type: 'category',
+          data: ['2014','2015','2016','2017','2018','2019'],
+          axisLine: {
+            lineStyle: {
+              color: 'black'
+
+            }
+          },
+          axisLabel: {
+            // interval: 0,
+            // rotate: 40,
+            textStyle: {
+              fontFamily: 'Microsoft YaHei'
+            }
+          },
+        },
+
+        yAxis: {
+          type: 'value',
+          max:'1200',
+          axisLine: {
+            show: false,
+            lineStyle: {
+              color: 'black'
+            }
+          },
+          splitLine: {
+            show: true,
+            lineStyle: {
+              color: 'rgba(255,255,255,0.3)'
+            }
+          },
+          axisLabel: {}
+        },
+        series: [{
+          name: '待遇支付',
           type: 'bar',
-          stack: '合并',
+          barWidth: '15%',
           itemStyle: {
             normal: {
-              color: "#7e6cf6",
-              // barBorderRadius: [5, 5, 0, 0]
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                    offset: 0,
+                    color: '#fccb05'
+                }, {
+                    offset: 1,
+                    color: '#f5804d'
+                }]),
+                barBorderRadius: 12,
             },
           },
-          xAxisIndex: 0,
-          barWidth: 30,
-          data: [1, 2, 3, 4, 5],
+          data: [300, 300, 300, 400, 400, 400]
         },
         {
-          id: "leftchart",
-          name: "生产未申报",
+          name: '计划成交',
           type: 'bar',
-          stack: '合并',
-          barGap: "-100%",
+          barWidth: '15%',
           itemStyle: {
             normal: {
-              color: "#1e96d8",
-              // barBorderRadius: [5, 5, 0, 0]
-            },
-          },
-          xAxisIndex: 1,
-          barWidth: 15,
-          data: [-5, -4, -3, -2, -1],
-        },
-        {
-          id: "rightchart",
-          name: "外贸未申报",
-          type: 'bar',
-          barGap: 0,
-          itemStyle: {
-            normal: {
-              color: "#42cec1",
-              // barBorderRadius: [5, 5, 0, 0]
-            },
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                    offset: 0,
+                    color: '#8bd46e'
+                }, {
+                    offset: 1,
+                    color: '#09bcb7'
+                }]),
+                barBorderRadius: 11,
+            }
             
           },
-          xAxisIndex: 1,
-          barWidth: 15,
-          data: [-2, -2, -2, -2, -2],
-        }
-      ]
-    };
+          data: [500, 500, 400,400, 500, 500]
+        },
+        {
+          name: '计划估值',
+          type: 'bar',
+          barWidth: '15%',
+          itemStyle: {
+            normal: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                    offset: 0,
+                    color: '#248ff7'
+                }, {
+                    offset: 1,
+                    color: '#6851f1'
+                }]),
+            barBorderRadius: 11,
+            }
+          },
+          data: [700, 1000, 400, 400, 600, 700]
+        }]
+      };
+    
     // setTimeout(() => {
     myChart1.setOption(option1);
     // }, 1000);
@@ -427,7 +444,7 @@
       legend: {
         orient: 'vertical',
         x: 'left',
-        data: ['个人', '企业', '业务类型1', '业务类型2']
+        data: ['开户管理', '缴费工作流程', '待遇支付流程', '计划估值管理']
       },
       series: [{
         name: '访问来源',
@@ -454,7 +471,7 @@
         },
         data: [{
             value: 335,
-            name: '个人',
+            name: '开户管理',
             itemStyle: {
               color: {
                 type: 'linear',
@@ -475,7 +492,7 @@
           },
           {
             value: 310,
-            name: '企业',
+            name: '缴费工作流程',
             itemStyle: {
               color: {
                 type: 'linear',
@@ -496,7 +513,7 @@
           },
           {
             value: 234,
-            name: '业务类型1',
+            name: '待遇支付流程',
             itemStyle: {
               color: {
                 type: 'linear',
@@ -517,7 +534,7 @@
           },
           {
             value: 135,
-            name: '业务类型2',
+            name: '计划估值管理',
             itemStyle: {
               color: {
                 type: 'linear',
